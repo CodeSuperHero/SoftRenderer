@@ -86,117 +86,42 @@ void SFScreen::DrawLineBresenham(const Vector3 &start, const Vector3 &end, const
     int y0 = (int)start.y;
     int x1 = (int)end.x;
     int y1 = (int)end.y;
-    std::cout<<" init x0 :"<<x0<<" y0 : "<<y0<<" x1: "<<x1<<"  y1 : "<<y1<<std::endl;
     
-    int dx = abs(x1 - x0);
+    bool steep = abs(y1 - y0) > abs(x1 - x0);
+    if(steep){
+        std::swap(x0, y0);
+        std::swap(x1, y1);
+    }
+    
+    if(x0 > x1){
+        std::swap(x0, x1);
+        std::swap(y0, y1);
+    }
+    
+    int dx = x1 - x0;
     int dy = abs(y1 - y0);
-    int yy = 0;
-    
-    if(dy < dx){
-        yy = 1;
-//        std::swap(x0, y0);
-//        std::swap(x1, y1);
-        std::swap(dx, dy);
-    }
-    
-    std::cout<<"x0:"<<x0<<" y0:"<<y0<<"  x1:"<<x1<<"  y1:"<<y1<<"  dx :"<<dx<<"  dy: "<<dy<<std::endl;
-    
-    int ix = x1 > x0 ? 1 : -1;
-    int iy = y1 > y0 ? 1 : -1;
-    
-//    int x = x0;
+    int d = dy - dx;
+    //float error = 0.0f;
+    //float derr = dy * 1.0f / dx;
+    int ystep = 0;
     int y = y0;
-    int de = 2 * dy;
-    int d = de - dx;
-    int dne = de - 2 * dx;
-    
-    std::cout<<"--start"<<" d:"<<d<<" de:"<<de<<" dne:"<<dne<<" yy : "<<yy<<std::endl;
-//    std::cout<<"-- x1 :"<<x1<<" y1:"<<y1<<" x : "<<x<<" y : "<<y<<std::endl;
-    int index = 0;
-    if(yy){
-//        std::cout<<"index : "<<index++<<"  y : "<<y<<"  x : "<<x<<"  x1 : "<<x1<<" d : "<<d<<std::endl;
+    ystep = y0 < y1 ? 1 : -1;
+    for (int x = x0; x <= x1; x++) {
+        if(steep)
+            DrawPoint(y, x, 0, color);
+        else
+            DrawPoint(x, y, 0, color);
         
-        for (int x = x0; x <= x1; x++) {
-            DrawPoint(x, y, start.z, color);
-//            if(d < 0)
+        //error += derr;
+        if(d >= 0) {
+            y += ystep;
+            d -= dx;
         }
-//        while (x != x1) {
-//            if (d < 0) {
-//                d += de;
-//            } else {
-//                y += iy;
-//                d += dne;
-//            }
-//            x += ix;
-//            std::cout<<"index : "<<index++<<"  y : "<<y<<"  x : "<<x<<"  x1 : "<<x1<<" d : "<<d<< "d < 0 : "<<(d < 0)<<std::endl;
-//            DrawPoint(y, x, start.z, color);
-//        }
+        d += dy;
     }
-    else{
-//        DrawPoint(x, y, start.z, color);
-//        while (x != x1) {
-//            if (d < 0) {
-//                d += de;
-//            } else {
-//                y += iy;
-//                d += dne;
-//            }
-//            x += ix;
-//            DrawPoint(x, y, start.z, color);
-//        }
-    }
+    
     std::cout<<"--end"<<std::endl;
 }
-
-//void SFScreen::DrawLineBresenham(const Vector3 &start, const Vector3 &end, const Color &color){
-//    int x1 = (int)start.x;
-//    int y1 = (int)start.y;
-//    int x2 = (int)end.x;
-//    int y2 = (int)end.y;
-//    
-//    int dx = abs(x2 - x1);
-//    int dy = abs(y2 - y1);
-//    int yy = 0;
-//    if(dx < dy){
-//        yy = 1;
-//        std::swap(x1, x2);
-//        std::swap(x2, y2);
-//        std::swap(dx, dy);
-//    }
-//    
-//    int ix = (x2 - x1) > 0 ? 1 : -1;
-//    int iy = (y2 - y1) > 0 ? 1 : -1;
-//    int cx = x1;
-//    int cy = y1;
-//    int n2dy = dy * 2;
-//    int n2dydx = (dy - dx) * 2;
-//    int d = dy * 2 - dx;
-//    
-//    if(yy){
-//        while(cx != x2){
-//            if(d < 0){
-//                d+=n2dy;
-//            }
-//            else{
-//                d+= n2dydx;
-//                cy += iy;
-//            }
-//            DrawPoint(cy, cx, 0, color);
-//            cx += ix;
-//        }
-//    }else{
-//        while(cx != x2){
-//            if(d < 0){
-//                d+=n2dy;
-//            }else{
-//                d+=n2dydx;
-//                cy += iy;
-//            }
-//            DrawPoint(cx, cy, 0, color);
-//            cx+=ix;
-//        }
-//    }
-//}
 
 
 
