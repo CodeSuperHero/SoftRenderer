@@ -122,8 +122,3 @@ void SFScreen::DrawLineBresenham(const Vector3 &start, const Vector3 &end, const
     
     std::cout<<"--end"<<std::endl;
 }
-
-
-
-
-
