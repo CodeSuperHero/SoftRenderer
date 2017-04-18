@@ -13,18 +13,20 @@
 #include<SDL2/SDL.h>
 
 #include "SFScreen.h"
-#include "Color.h";
-#include "Vector3.h";
+#include "Color.h"
+#include "Vector3.h"
 
-using std::vector;
+using namespace std;
 
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 600;
 
 class Window {
 private:
-    SDL_Surface* _sdlSreen;
-    SFScreen* _screen;
+    SFScreen* _sfScreen;
+    SDL_Surface* _sdlScreen;
+    SDL_Window* _sdlWindow;
+    SDL_Event _event;
     
     int _width;
     int _height;
@@ -32,64 +34,86 @@ private:
     bool _running;
     
 public:
-    Window(int argc, char *argv[], int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT, const char *title = "SoftRender") {
-        if(SDL_Init(SDL_INIT_VIDEO) != 0) {
-            fprintf(stderr, "SDL_Init failed\n")
-        }
-        
-        SDL_Surface* screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE);
-        if(screen == NULL){
-            SDL_Quit();
-            fprintf(stderr, "SDL_SetVideoMode failed\n");
-        }
-        _sdlSreen = screen;
-        SDL_WM_SetCaption(title, NULL);
-        
+    Window(int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT, const char *title = "SoftRender") {
         _width = width;
         _height = height;
-        
-        _screen = new SFScreen((uint32_t *)screen->pixels, width, height);
-        
+        _sdlWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+        _sdlScreen = SDL_GetWindowSurface(_sdlWindow);
+        _sfScreen = new SFScreen((uint32_t*) _sdlScreen->pixels, width, height);
         _running = true;
-        
     };
     
     void Run() {
-        while (_running) {
-            SDL_LockSurface(_screen);
-            
-//            UpdateInput();
+        int x = 0;
+        int y = 0;
+        int index = 0;
+        Vector3 center = Vector3(_width >> 1, _height >> 1);
+        Color* c = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+        
+          while (_running) {
+            UpdateInput();
             
             Clear();
-            
-            Draw();
+              
+            // -- test draw start
+            _sfScreen->DrawLineBresenham(Vector3(x,y), center, *c);
+            if (index < 50) {
+                index ++;
+                continue;
+            }
+              
+            if(x == 0 && y == 0){
+                x++;
+            } else if(0 < x && y == 0){
+                x ++;
+                if(x == _width)
+                    y++;
+            } else if(x == _width && y > 0){
+                y++;
+                if(y == _height)
+                    x--;
+            } else if(x > 0 && y == _height){
+                x--;
+                if(x == 0)
+                    y--;
+            } else if(x == 0 && y > 0){
+                y--;
+            }
+            // -- test draw end
+              
+            //Draw();
             
             Show();
         }
     };
     
+    void UpdateInput() {
+        while (SDL_PollEvent(&_event) != 0) {
+            if (_event.type == SDL_QUIT) {
+                Quit();
+            }
+        }
+    }
+    
     void Show() {
-        SDL_UnlockSurface(_sdlSreen);
-        SDL_UpdateRect(_sdlSreen, 0, 0, 0, 0);
+        SDL_UnlockSurface(_sdlScreen);
+        SDL_UpdateWindowSurface(_sdlWindow);
     };
     
     void Clear() {
-        _screen->Clear();
+        _sfScreen->Clear();
     };
     
     void Draw() {
-        Vector3 vec;
-        vec.x = 10f;
-        vec.y = 10f;
-        vec.z = 1f;
-        Color(1f,0f,0f,1f) color;
-        _screen.DrawPoint(&vec, &color);
+        
     };
     
     void Quit()
     {
         _running = false;
-    }
-}
+        SDL_DestroyWindow(_sdlWindow);
+        SDL_Quit();
+    };
+};
 
 #endif /* Window_h */

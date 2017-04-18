@@ -5,7 +5,7 @@
             "name": "C++ Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${file}/a.out",
+            "program": "${workspaceRoot}/a.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
@@ -33,14 +33,16 @@
                         "ignoreFailures": true
                     }
                 ]
-            }
+            },
+            
+            "preLaunchTask":"clang++"
         },
         {
             "name": "C++ Attach",
             "type": "cppdbg",
             "request": "attach",
             "program": "enter program name, for example ${workspaceRoot}/a.out",
-            "processId": "${command.pickProcess}",
+            "processId": "${command:pickProcess}",
             "linux": {
                 "MIMode": "gdb",
                 "setupCommands": [
