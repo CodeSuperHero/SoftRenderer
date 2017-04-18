@@ -23,6 +23,7 @@ private:
     uint32_t _width;
     uint32_t _height;
     
+    void DrawPoint(const int &x, const int &y, const float &z, const Color &color);
     void PutPixel(int x, int y, float z, const Color &color);
 public:
     SFScreen(uint32_t* pixels, float width, float height){
@@ -39,9 +40,9 @@ public:
     };
         
     void Clear();
-    void DrawPoint(const int &x, const int &y, const float &z, const Color &color);
+    
     void DrawPoint(const Vector3 &v, const Color &color);
-    void DrawLine(const Vector3 &start, const Vector3 &end, const Color &color);
+//    void DrawLine(const Vector3 &start, const Vector3 &end, const Color &color);
     void DrawLineBresenham(const Vector3 &start,const Vector3 &end, const Color &color);
     //void DrawLineBresenham(const Vector3 &start,const Vector3 &end, const Color &color);
 };

@@ -18,23 +18,17 @@ public:
     constexpr const static float DEGREE_TO_RADIAN =  0.017453293f;
     constexpr const static float RADIAN_TO_DEGREE = 57.295779515f;
     
-    inline static bool FloatEqual(float a, float b){
+    inline static bool FloatEqual(const float a, const float b){
         return fabsf(a-b) <= FLOAT_EPSILON;
     }
     
-    inline static float RadianFromDegress(float degree){
+    inline static float DegreeToRadian(const float degree){
         return PI * degree * DEGREE_TO_RADIAN;
     }
     
-    inline static float DegressFromRadian(float radian){
+    inline static float RadianToDegree(const float radian){
         return radian * RADIAN_TO_DEGREE;
     }
-    
-//    inline static void SwapInt(int &x, int &y){
-//        int temp = x;
-//        x = y;
-//        y = temp;
-//    }
 };
 
 #endif /* SFMath_h */
