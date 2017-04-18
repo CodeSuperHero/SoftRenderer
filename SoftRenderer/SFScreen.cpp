@@ -45,41 +45,41 @@ void SFScreen::DrawPoint(const Vector3 &position, const Color &color){
     }
 }
 
-void SFScreen::DrawLine(const Vector3 &start, const Vector3 &end, const Color &color){
-    if(start == end){
-        this->DrawPoint(start, color);
-        return;
-    }
-    
-    int x1 = (int)start.x;
-    int x2 = (int)end.x;
-    int y1 = (int)start.y;
-    int y2 = (int)end.y;
-    
-    int dx = x2 - x1;
-    int dy = y2 - y1;
-    
-    if (abs(dx) > abs(dy))
-    {
-        int sign = dx > 0 ? 1 : -1;
-        float ratio = (float)dy / dx;
-        
-        for (int x = x1; x != x2; x+=sign) {
-            int y = y1 + (x - x1) * ratio;
-            this->DrawPoint(Vector3(x,y), color);
-        }
-    }
-    else
-    {
-        int sign = dy > 0 ? 1 : -1;
-        float ratio = (float)dx / dy;
-        
-        for (int y = y1; y != y2; y+=sign) {
-            int x = x1 + (y - y1) * ratio;
-            this->DrawPoint(Vector3(x,y), color);
-        }
-    }
-}
+//void SFScreen::DrawLine(const Vector3 &start, const Vector3 &end, const Color &color){
+//    if(start == end){
+//        this->DrawPoint(start, color);
+//        return;
+//    }
+//    
+//    int x1 = (int)start.x;
+//    int x2 = (int)end.x;
+//    int y1 = (int)start.y;
+//    int y2 = (int)end.y;
+//    
+//    int dx = x2 - x1;
+//    int dy = y2 - y1;
+//    
+//    if (abs(dx) > abs(dy))
+//    {
+//        int sign = dx > 0 ? 1 : -1;
+//        float ratio = (float)dy / dx;
+//        
+//        for (int x = x1; x != x2; x+=sign) {
+//            int y = y1 + (x - x1) * ratio;
+//            this->DrawPoint(Vector3(x,y), color);
+//        }
+//    }
+//    else
+//    {
+//        int sign = dy > 0 ? 1 : -1;
+//        float ratio = (float)dx / dy;
+//        
+//        for (int y = y1; y != y2; y+=sign) {
+//            int x = x1 + (y - y1) * ratio;
+//            this->DrawPoint(Vector3(x,y), color);
+//        }
+//    }
+//}
 
 void SFScreen::DrawLineBresenham(const Vector3 &start, const Vector3 &end, const Color &color) {
     int x0 = (int)start.x;

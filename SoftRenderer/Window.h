@@ -33,6 +33,34 @@ private:
     
     bool _running;
     
+    void UpdateInput() {
+        while (SDL_PollEvent(&_event) != 0) {
+            if (_event.type == SDL_QUIT) {
+                Quit();
+            }
+        }
+    }
+    
+    void Show() {
+        SDL_UnlockSurface(_sdlScreen);
+        SDL_UpdateWindowSurface(_sdlWindow);
+    };
+    
+    void Clear() {
+        _sfScreen->Clear();
+    };
+    
+    void Draw() {
+        
+    };
+    
+    void Quit()
+    {
+        _running = false;
+        SDL_DestroyWindow(_sdlWindow);
+        SDL_Quit();
+    };
+    
 public:
     Window(int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT, const char *title = "SoftRender") {
         _width = width;
@@ -52,9 +80,7 @@ public:
         
           while (_running) {
             UpdateInput();
-            
             Clear();
-              
             // -- test draw start
             _sfScreen->DrawLineBresenham(Vector3(x,y), center, *c);
             if (index < 50) {
@@ -82,37 +108,8 @@ public:
             // -- test draw end
               
             //Draw();
-            
             Show();
         }
-    };
-    
-    void UpdateInput() {
-        while (SDL_PollEvent(&_event) != 0) {
-            if (_event.type == SDL_QUIT) {
-                Quit();
-            }
-        }
-    }
-    
-    void Show() {
-        SDL_UnlockSurface(_sdlScreen);
-        SDL_UpdateWindowSurface(_sdlWindow);
-    };
-    
-    void Clear() {
-        _sfScreen->Clear();
-    };
-    
-    void Draw() {
-        
-    };
-    
-    void Quit()
-    {
-        _running = false;
-        SDL_DestroyWindow(_sdlWindow);
-        SDL_Quit();
     };
 };
 
