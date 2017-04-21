@@ -29,6 +29,14 @@ public:
     inline static float RadianToDegree(const float radian){
         return radian * RADIAN_TO_DEGREE;
     }
+    
+    inline static float FloatMAX(const float a, const float b) {
+        return a > b ? a : b;
+    }
+    
+    inline static float FloatMin(const float a, const float b) {
+        return a < b ? a : b;
+    }
 };
 
 #endif /* SFMath_h */

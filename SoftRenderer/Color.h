@@ -28,7 +28,19 @@ public:
     };
     
     inline static Color Black(){
-        return Color(0.0f,0.0f,0.0f,0.0f);
+        return Color(0.0f, 0.0f, 0.0f, 1.0f);
+    };
+    
+    inline static Color Red(){
+        return Color(1.0f, 0.0f, 0.0f, 1.0f);
+    };
+    
+    inline static Color Blue(){
+        return Color(0.0f, 0.0f, 1.0f, 1.0f);
+    };
+    
+    inline static Color Green(){
+        return Color(0.0f, 1.0f, 0.0f,1.0f);
     };
     
     inline Color operator+(const Color &color) const {

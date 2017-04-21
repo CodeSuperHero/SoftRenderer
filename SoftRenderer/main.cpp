@@ -9,8 +9,12 @@
 #include "SDL2/SDL.h"
 #include "SFScreen.h"
 #include "Window.h"
+#include "Vector3.h"
+#include "Vector2.h"
+#include "Rect.h"
 #include <iostream>
 #include <thread>
+
 
 int main(int argc, const char * argv[]) {
     Window* w = new Window();

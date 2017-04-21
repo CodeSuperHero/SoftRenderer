@@ -10,6 +10,7 @@
 #define Vector_h
 
 #include "SFMath.h"
+#include "Vector2.h"
 #include <cmath>
 
 class Vector3 {
@@ -82,3 +83,9 @@ public:
 };
 
 #endif /* Vector_h */
+
+
+
+
+
+

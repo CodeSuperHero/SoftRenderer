@@ -61,6 +61,22 @@ private:
         SDL_Quit();
     };
     
+    void Renderer()
+    {
+//        int free = 100;
+//        Rect r = Rect(free,free,(_width - free * 2),(_height - free * 2));
+//        _sfScreen->DrawRect(r, Color::Green());
+//        _sfScreen->DrawLine(Vector3(50,50), Vector3(150,150), Color::Blue(), r);
+//        _sfScreen->DrawLine(Vector3(150,50), Vector3(150,150), Color::Blue(), r);
+//        _sfScreen->DrawLine(Vector3(300,50), Vector3(150,150), Color::Blue(), r);
+//        _sfScreen->DrawLine(Vector3(300,150), Vector3(150,150), Color::Blue(), r);
+//        _sfScreen->DrawLine(Vector3(300,300), Vector3(150,150), Color::Blue(), r);
+//        _sfScreen->DrawLine(Vector3(150,450), Vector3(150,150), Color::Blue(), r);
+//        _sfScreen->DrawLine(Vector3(50,150), Vector3(150,150), Color::Blue(), r);
+        //_sfScreen->DrawLineBresenham(Vector3(50,50), Vector3(150,150), Color::Blue());
+      
+    }
+    
 public:
     Window(int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT, const char *title = "SoftRender") {
         _width = width;
@@ -76,38 +92,41 @@ public:
         int y = 0;
         int index = 0;
         Vector3 center = Vector3(_width >> 1, _height >> 1);
-        Color* c = new Color(0.0f, 1.0f, 0.0f, 1.0f);
-        
+        Color* c = new Color(1.0f, 0.0f, 0.0f, 1.0f);
           while (_running) {
             UpdateInput();
             Clear();
-            // -- test draw start
-            _sfScreen->DrawLineBresenham(Vector3(x,y), center, *c);
-            if (index < 50) {
-                index ++;
-                continue;
-            }
+            Renderer();
+              //            // -- test draw start
+              int free = 100;
+              Rect r = Rect(free,free,(_width - free * 2),(_height - free * 2));
+              _sfScreen->DrawRect(r, Color::Green());
+              _sfScreen->DrawLine(Vector3(x,y), center, *c, r);
+//              _sfScreen->DrawLineBresenham(Vector3(x,y), center, *c);
+              if (index < 50) {
+                  index ++;
+                  continue;
+              }
               
-            if(x == 0 && y == 0){
-                x++;
-            } else if(0 < x && y == 0){
-                x ++;
-                if(x == _width)
-                    y++;
-            } else if(x == _width && y > 0){
-                y++;
-                if(y == _height)
-                    x--;
-            } else if(x > 0 && y == _height){
-                x--;
-                if(x == 0)
-                    y--;
-            } else if(x == 0 && y > 0){
-                y--;
-            }
-            // -- test draw end
-              
-            //Draw();
+              if(x == 0 && y == 0){
+                  x++;
+              } else if(0 < x && y == 0){
+                  x ++;
+                  if(x == _width)
+                      y++;
+              } else if(x == _width && y > 0){
+                  y++;
+                  if(y == _height)
+                      x--;
+              } else if(x > 0 && y == _height){
+                  x--;
+                  if(x == 0)
+                      y--;
+              } else if(x == 0 && y > 0){
+                  y--;
+              }
+              //             //-- test draw end
+            Draw();
             Show();
         }
     };

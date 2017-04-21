@@ -5,15 +5,12 @@
 //  Created by  lyonlei on 16/5/31.
 //  Copyright © 2016年  lyonlei. All rights reserved.
 //
-
+#include "SFMath.h"
 #include "SFScreen.h"
 #include <cstring>
-#include <cmath>
 #include <cfloat>
 #include <cstdio>
 #include <iostream>
-
-//#include <string>
 
 void SFScreen::Clear() {
     memset(_pixels, 0, _size);
@@ -34,7 +31,6 @@ void SFScreen::PutPixel(int x, int y, float z, const Color &color){
 }
 
 void SFScreen::DrawPoint(const int &x, const int &y, const float &z, const Color &color){
-    //std::cout<<"x : "<<x<<" y : "<<y<<std::endl;
     if(x >=0 && y >=0 && x < _width && y < _height)
         PutPixel(x, y, z, color);
 }
@@ -44,42 +40,6 @@ void SFScreen::DrawPoint(const Vector3 &position, const Color &color){
         PutPixel(position.x, position.y, position.z, color);
     }
 }
-
-//void SFScreen::DrawLine(const Vector3 &start, const Vector3 &end, const Color &color){
-//    if(start == end){
-//        this->DrawPoint(start, color);
-//        return;
-//    }
-//    
-//    int x1 = (int)start.x;
-//    int x2 = (int)end.x;
-//    int y1 = (int)start.y;
-//    int y2 = (int)end.y;
-//    
-//    int dx = x2 - x1;
-//    int dy = y2 - y1;
-//    
-//    if (abs(dx) > abs(dy))
-//    {
-//        int sign = dx > 0 ? 1 : -1;
-//        float ratio = (float)dy / dx;
-//        
-//        for (int x = x1; x != x2; x+=sign) {
-//            int y = y1 + (x - x1) * ratio;
-//            this->DrawPoint(Vector3(x,y), color);
-//        }
-//    }
-//    else
-//    {
-//        int sign = dy > 0 ? 1 : -1;
-//        float ratio = (float)dx / dy;
-//        
-//        for (int y = y1; y != y2; y+=sign) {
-//            int x = x1 + (y - y1) * ratio;
-//            this->DrawPoint(Vector3(x,y), color);
-//        }
-//    }
-//}
 
 void SFScreen::DrawLineBresenham(const Vector3 &start, const Vector3 &end, const Color &color) {
     int x0 = (int)start.x;
@@ -101,8 +61,6 @@ void SFScreen::DrawLineBresenham(const Vector3 &start, const Vector3 &end, const
     int dx = x1 - x0;
     int dy = abs(y1 - y0);
     int d = dy - dx;
-    //float error = 0.0f;
-    //float derr = dy * 1.0f / dx;
     int ystep = 0;
     int y = y0;
     ystep = y0 < y1 ? 1 : -1;
@@ -112,13 +70,84 @@ void SFScreen::DrawLineBresenham(const Vector3 &start, const Vector3 &end, const
         else
             DrawPoint(x, y, 0, color);
         
-        //error += derr;
         if(d >= 0) {
             y += ystep;
             d -= dx;
         }
         d += dy;
     }
+}
+
+void SFScreen::DrawLine(const Vector3 &start, const Vector3 &end, const Color &color, const Rect rect)
+{
+    float p[4], q[4];
+
+    // x_min <= x_1 + u * Delta_x <= x_max
+    // y_min <= y_1 + u * Delta_y <= y_MAX
+    // u * p_k <= q_k
     
-    std::cout<<"--end"<<std::endl;
+    float delta_x = start.x - end.x;
+    float delta_y = start.y - end.y;
+    
+    p[0] = delta_x;                 // p_0 = x_1 - x_2
+    q[0] = start.x - rect.xMin;     // q_0 = x_1 - x_min
+    
+    p[1] = -delta_x;                // p_1 = -(x_1 - x_2);
+    q[1] = rect.xMax - start.x;     // q_2 = x_max - x_1
+    
+    p[2] = delta_y;                 // p_2 = y_1 - y_2
+    q[2] = start.y - rect.yMin;     // q_2 = y_1 - y_min
+    
+    p[3] = -delta_y;                // p_3 = Delta_y = -(y_1 - y_2);
+    q[3] = rect.yMax - start.y;     // q_3 = y_max - y_1;
+    
+    float u1 = 0, u2 = 1;
+    float r;
+    bool flag = false;
+    for (int i = 0; i < 4; i ++) {
+        r = q[i] / p[i];
+        if (p[i] < 0) {
+            u1 = SFMath::FloatMAX(u1, r);
+            if (u1 > u2) {
+                flag = true;
+            }
+        } else if (p[i] > 0) {
+            u2 = SFMath::FloatMin(u2, r);
+            if(u1 > u2)
+                flag = true;
+        } else if (q[i] < 0) {
+            flag = true;
+        }
+    }
+    
+    if (flag)
+        return;
+    
+    Vector3 s,e;
+    
+    s.x = start.x - u1*delta_x;
+    s.y = start.y - u1*delta_y;
+    s.z = start.z;
+    
+    e.x = start.x - u2*delta_x;
+    e.y = start.y - u2*delta_y;
+    e.z = end.z;
+    
+    DrawLineBresenham(s, e, color);
+}
+
+void SFScreen::DrawRect(const Rect rect, const Color &color) {
+    _rect = rect;
+    
+    int x0 = (int)rect.xMin;
+    int y0 = (int)rect.yMin;
+    int x1 = (int)rect.xMax;
+    int y1 = (int)rect.yMax;
+    while(y1 >= y0)
+    {
+        Vector3 v0 = Vector3(x0, y0);
+        Vector3 v1 = Vector3(x1, y0);
+        DrawLineBresenham(v0, v1, color);
+        y0++;
+    }
 }

@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "Color.h"
 #include "Vector3.h"
+#include "Rect.h"
 
 class SFScreen{
 private:
@@ -25,6 +26,8 @@ private:
     
     void DrawPoint(const int &x, const int &y, const float &z, const Color &color);
     void PutPixel(int x, int y, float z, const Color &color);
+    
+    Rect _rect;
 public:
     SFScreen(uint32_t* pixels, float width, float height){
         _pixels = pixels;
@@ -44,6 +47,10 @@ public:
     void DrawPoint(const Vector3 &v, const Color &color);
 //    void DrawLine(const Vector3 &start, const Vector3 &end, const Color &color);
     void DrawLineBresenham(const Vector3 &start,const Vector3 &end, const Color &color);
+    
+    void DrawRect(const Rect rect, const Color &color);
+    
+    void DrawLine(const Vector3 &start, const Vector3 &end, const Color &color, const Rect rect);
     //void DrawLineBresenham(const Vector3 &start,const Vector3 &end, const Color &color);
 };
 #endif /* SFScreen_hpp */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C5143111EA645F4001A7720 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C51430F1EA645F4001A7720 /* Rect.cpp */; };
 		0C8815911CFC97B600FE5724 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8815901CFC97B600FE5724 /* main.cpp */; };
 		0C8815981CFC981500FE5724 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C8815971CFC981500FE5724 /* SDL2.framework */; };
 		0C88159E1CFCAF6600FE5724 /* SFScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88159C1CFCAF6600FE5724 /* SFScreen.cpp */; };
@@ -26,6 +27,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C51430F1EA645F4001A7720 /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
+		0C5143101EA645F4001A7720 /* Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rect.h; sourceTree = "<group>"; };
+		0C5143121EA64D8E001A7720 /* Vector2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
 		0C88158D1CFC97B600FE5724 /* SoftRenderer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SoftRenderer; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C8815901CFC97B600FE5724 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		0C8815971CFC981500FE5724 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -85,9 +89,12 @@
 				0C88159C1CFCAF6600FE5724 /* SFScreen.cpp */,
 				0C8815A61CFCB12C00FE5724 /* Color.cpp */,
 				0C8815A81CFCB13D00FE5724 /* Color.h */,
+				0C5143121EA64D8E001A7720 /* Vector2.h */,
 				0C8815AA1CFF32DB00FE5724 /* Vector3.h */,
 				0C8815AB1CFF37B300FE5724 /* SFMath.h */,
 				0C8815AC1CFFED8500FE5724 /* Window.h */,
+				0C51430F1EA645F4001A7720 /* Rect.cpp */,
+				0C5143101EA645F4001A7720 /* Rect.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -151,6 +158,7 @@
 				0C88159E1CFCAF6600FE5724 /* SFScreen.cpp in Sources */,
 				0C8815A71CFCB12C00FE5724 /* Color.cpp in Sources */,
 				0C8815911CFC97B600FE5724 /* main.cpp in Sources */,
+				0C5143111EA645F4001A7720 /* Rect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
