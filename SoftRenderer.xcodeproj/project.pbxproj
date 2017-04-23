@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C4086551EACCA71006ED3E1 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C4086531EACCA71006ED3E1 /* Vertex.cpp */; };
 		0C5143111EA645F4001A7720 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C51430F1EA645F4001A7720 /* Rect.cpp */; };
 		0C8815911CFC97B600FE5724 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8815901CFC97B600FE5724 /* main.cpp */; };
 		0C8815981CFC981500FE5724 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C8815971CFC981500FE5724 /* SDL2.framework */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C4086531EACCA71006ED3E1 /* Vertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex.cpp; sourceTree = "<group>"; };
+		0C4086541EACCA71006ED3E1 /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		0C51430F1EA645F4001A7720 /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
 		0C5143101EA645F4001A7720 /* Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rect.h; sourceTree = "<group>"; };
 		0C5143121EA64D8E001A7720 /* Vector2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				0C8815AC1CFFED8500FE5724 /* Window.h */,
 				0C51430F1EA645F4001A7720 /* Rect.cpp */,
 				0C5143101EA645F4001A7720 /* Rect.h */,
+				0C4086531EACCA71006ED3E1 /* Vertex.cpp */,
+				0C4086541EACCA71006ED3E1 /* Vertex.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C88159E1CFCAF6600FE5724 /* SFScreen.cpp in Sources */,
+				0C4086551EACCA71006ED3E1 /* Vertex.cpp in Sources */,
 				0C8815A71CFCB12C00FE5724 /* Color.cpp in Sources */,
 				0C8815911CFC97B600FE5724 /* main.cpp in Sources */,
 				0C5143111EA645F4001A7720 /* Rect.cpp in Sources */,

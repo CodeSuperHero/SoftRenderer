@@ -58,6 +58,10 @@ class Vector2{
             return Vector2();
     }
     
+    inline Vector2 interpolate(const Vector2 &v, float factor) const {
+        return *this + (v - *this) * factor;
+    };
+    
     inline float sqrMagnitude() const {
         return x * x + y * y;
     }
@@ -77,6 +81,8 @@ class Vector2{
         v1 = v2;
         v2 = temp;
     }
+    
+    
 };
 
 #endif /* Vector2_h */

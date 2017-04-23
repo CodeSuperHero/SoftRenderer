@@ -43,6 +43,11 @@ public:
         return Color(0.0f, 1.0f, 0.0f,1.0f);
     };
     
+    inline Color interpolate(const Color &c, float factor) const {
+        return *this + (c - *this) * factor;
+    };
+    
+    
     inline Color operator+(const Color &color) const {
         return Color(r + color.r, g + color.g, b + color.b, a + color  .a);
     };

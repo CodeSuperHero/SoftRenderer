@@ -61,6 +61,10 @@ public:
             return Vector3();
     }
     
+    inline Vector3 interpolate(const Vector3 &v, float factor) const {
+        return *this + (v - *this) * factor;
+    };
+    
     inline float sqrMagnitude() const {
         return x * x + y * y + z * z;
     }
